@@ -1,4 +1,5 @@
 const path = require('path');
+const HtmlWebpackagePlugin = require('html-webpack-plugin')
 module.exports = {  
     entry: {
        'app': path.resolve(__dirname, 'app')
@@ -12,19 +13,25 @@ module.exports = {
             test:/\.jsx?/,
             loader: 'babel-loader',
             options:{
-                presets:['es2015']
+                presets:['es2015','react']
             },
-        },{
-            test: /\,pug/,
-            loader: 'pug-loader'
         },
         {
-            test: /\,styl/,
+            test: /\.css/,
             use: [
             'style-loader', 
-            'css-loader',
-            'stylus-loader']
+            'css-loader']
         }
         ]
+    },
+    plugins:[
+        new HtmlWebpackagePlugin({
+            template: require('html-webpack-template'),
+            title:'Hello World!!',
+            appMountId: 'app'
+        }),
+    ],
+    resolve: {
+        extensions:['.jsx','.js']
     }
 }
